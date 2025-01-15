@@ -1,7 +1,6 @@
-
 footer {
-  background-color: rgb(12, 240, 175);  
-  color:black;
+  background-color: #37bba5;
+  color: black;
   text-align: center;
   padding: 10px;
   width: 100%;
@@ -22,15 +21,14 @@ footer a:hover {
 }
 
 header {
-  background-color: rgb(12,240 ,175  ); /* Blue background */
+  background-color: #37bba5; /* Blue background */
   color: black; /* White text */
   text-align: center; /* Center the text */
   padding: 8px 0; /* Add padding to the top and bottom */
   font-size: 10px; /* Larger font size for the header */
   font-weight: bold; /* Make the text bold */
-  position: fixed;; /* Position it relative to the rest of the page */
-  width: 100%; 
+  position: fixed; /* Position it relative to the rest of the page */
+  width: 100%;
   top: 0; /* Aligns it to the top */
   left: 0; /* Aligns it to the left */
-  
 }

@@ -41,7 +41,6 @@ function App() {
     return <p className="message-text">{value}</p>;
   };
   return (
-    
     <main class="container">
       <div class="chats">
         {qna.map((qna) => {
