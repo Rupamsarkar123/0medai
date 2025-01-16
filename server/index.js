@@ -1,11 +1,12 @@
 const express = require("express");
 const cors = require("cors");
+const dotenv = require("dotenv");
 
 const allowedOrigins = [
   "https://assistment.netlify.app",
   "https://staging-assistment.netlify.app",
 ];
-
+dotenv.config(); // Load environment variables
 const app = express();
 
 // CORS Configuration
@@ -23,11 +24,32 @@ app.use(
   })
 );
 app.use(express.json());
+const PORT = process.env.PORT || 3000;
 
 app.get("/ping", (req, res) => {
   res.json({
     message: "pong",
-  });
+  });Editing index.js in 0medai
+Breadcrumbs0medai/server
+/
+index.js
+in
+master
+
+Edit
+
+Preview
+Indent mode
+
+Spaces
+Indent size
+
+2
+Line wrap mode
+
+No wrap
+Editing index.js file contents
+
 });
 
 app.post("/chat", async (req, res) => {
@@ -352,6 +374,6 @@ app.post("/chat", async (req, res) => {
   }, 2000); //after modification
 });
 
-app.listen(3000, () => {
-  console.log("Server is listening on port 3000");
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
 });
