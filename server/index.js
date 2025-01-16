@@ -1,12 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-const OpenAI = require("openai"); // Correct require statement for v4.x.x
+//const OpenAI = require("openai"); // Correct require statement for v4.x.x
 
 // Initialize OpenAI client with the API key directly
-const openai = new OpenAI({
-  apiKey:
-    "sk-9L8iMn_cxkKY7pT8qPkV4pXC5wppTXdaPW8PzmDxUWT3BlbkFJinMSMk6_WwkMzJ6ZUEPO5K6Dc1kOqYB_hav6wZQfgA",
-});
+// const openai = new OpenAI({
+//   apiKey:
+//     "sk-9L8iMn_cxkKY7pT8qPkV4pXC5wppTXdaPW8PzmDxUWT3BlbkFJinMSMk6_WwkMzJ6ZUEPO5K6Dc1kOqYB_hav6wZQfgA",
+// });
 //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
 const app = express();
 app.use(cors());
@@ -337,7 +337,7 @@ app.post("/chat", async (req, res) => {
     // }
 
     console.log({ question });
-  }, 3000); //after modification
+  }, 2000); //after modification
 });
 
 app.listen(3000, () => {
