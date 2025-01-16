@@ -1,10 +1,13 @@
 import { useRef, useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
 import axios from "axios";
 
 const YOU = "you";
 const AI = "ai";
+
+// Use the environment variable for the backend URL
+const backendURL = import.meta.env.VITE_BACKEND_URL || "https://mentassist.netlify.app";
+
 function App() {
   const inputRef = useRef();
   const [qna, setQna] = useState([]);
@@ -16,15 +19,20 @@ function App() {
 
   const handleSend = () => {
     const question = inputRef.current.value;
+    if (!question.trim()) return; // Prevent sending empty questions
     updateQNA(YOU, question);
 
     setLoading(true);
     axios
-      .post("http://localhost:3000/chat", {
+      .post(`${backendURL}/chat`, {
         question,
       })
       .then((response) => {
         updateQNA(AI, response.data.answer);
+      })
+      .catch((error) => {
+        updateQNA(AI, "An error occurred. Please try again.");
+        console.error(error);
       })
       .finally(() => {
         setLoading(false);
@@ -35,59 +43,60 @@ function App() {
     const value = qna.value;
 
     if (Array.isArray(value)) {
-      return value.map((v) => <p className="message-text">{v}</p>);
+      return value.map((v, index) => <p className="message-text" key={index}>{v}</p>);
     }
 
     return <p className="message-text">{value}</p>;
   };
+
   return (
-    <main class="container">
-      <div class="chats">
-        {qna.map((qna) => {
+    <main className="container">
+      <div className="chats">
+        {qna.map((qna, index) => {
           if (qna.from === YOU) {
             return (
-              <div class="send chat">
+              <div className="send chat" key={index}>
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/6124/6124635.png"
                   alt=""
-                  class="avtar"
+                  className="avtar"
                 />
-                <p>{renderContent(qna)}</p>
+                {renderContent(qna)}
               </div>
             );
           }
           return (
-            <div class="recieve chat">
+            <div className="recieve chat" key={index}>
               <img
                 src="https://cdn-icons-png.flaticon.com/512/7054/7054227.png"
                 alt=""
-                class="avtar"
+                className="avtar"
               />
-              <p>{renderContent(qna)}</p>
+              {renderContent(qna)}
             </div>
           );
         })}
 
         {loading && (
-          <div class="recieve chat">
+          <div className="recieve chat">
             <img
               src="https://cdn-icons-png.flaticon.com/512/7054/7054227.png"
               alt=""
-              class="avtar"
+              className="avtar"
             />
             <p>Typing...</p>
           </div>
         )}
       </div>
 
-      <div class="chat-input">
+      <div className="chat-input">
         <input
           type="text"
           ref={inputRef}
-          class="form-control col"
+          className="form-control col"
           placeholder="Describe your symptoms.."
         />
-        <button disabled={loading} class="btn btn-success" onClick={handleSend}>
+        <button disabled={loading} className="btn btn-success" onClick={handleSend}>
           Ask AI
         </button>
       </div>
