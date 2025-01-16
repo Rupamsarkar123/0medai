@@ -1,15 +1,27 @@
 const express = require("express");
 const cors = require("cors");
-//const OpenAI = require("openai"); // Correct require statement for v4.x.x
 
-// Initialize OpenAI client with the API key directly
-// const openai = new OpenAI({
-//   apiKey:
-//     "sk-9L8iMn_cxkKY7pT8qPkV4pXC5wppTXdaPW8PzmDxUWT3BlbkFJinMSMk6_WwkMzJ6ZUEPO5K6Dc1kOqYB_hav6wZQfgA",
-// });
-//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
+const allowedOrigins = [
+  "https://assistment.netlify.app",
+  "https://staging-assistment.netlify.app",
+];
+
 const app = express();
-app.use(cors());
+
+// CORS Configuration
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 app.get("/ping", (req, res) => {
